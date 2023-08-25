@@ -15,7 +15,7 @@ export const setIconCommand: Command = {
     },
     {
       name: '--platform [type]',
-      description: 'ios or android',
+      description: 'ios or android or watchos',
       default: EPlatform.ALL,
     },
     {

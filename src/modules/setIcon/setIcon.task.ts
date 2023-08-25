@@ -1,5 +1,6 @@
 import { addIosIcon } from './ios/service';
 import { addAndroidIcon } from './android/service';
+import { addWatchOsIcon } from './watchos/service';
 import { Config } from '@react-native-community/cli';
 import { EPlatform } from '../../services/type';
 
@@ -11,6 +12,9 @@ export const setIconTask = async (argv: string[], config: Config, args: Record<s
       break;
     case EPlatform.ANDROID:
       await addAndroidIcon(path, background);
+      break;
+    case EPlatform.WATCHOS:
+      await addWatchOsIcon(path);
       break;
     case EPlatform.ALL:
       await addIosIcon(path);
