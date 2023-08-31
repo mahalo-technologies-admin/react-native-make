@@ -22,7 +22,7 @@ const generateIosIcons = (iconSource: string, iosIconFolder: string) =>
                 size.multipliers.map(multiplier =>
                     generateResizedAssetsWithoutAlpha(
                         iconSource,
-                        `${iosIconFolder}/icon-${size.size}@${multiplier}x.png`,
+                        `${iosIconFolder}/items.png`,
                         size.size * multiplier
                     )
                 )
