@@ -7,6 +7,7 @@ import {
 
 export const addWatchOsIcon = async (iconSource: string) => {
     try {
+        console.log('Generating watchos icons');
         await checkImageIsSquare(iconSource);
         const iosIconFolder = addWatchOsImageSetContents('AppIcon');
         await generateIosIcons(iconSource, iosIconFolder);
