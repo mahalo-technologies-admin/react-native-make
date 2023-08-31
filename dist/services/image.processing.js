@@ -19,6 +19,7 @@ exports.generateResizedAssets = generateResizedAssets;
 const generateResizedAssetsWithoutAlpha = async (sourcePath, destinationPath, width, height = width, options = {
     fit: 'contain',
 }) => {
+    console.log(`make icons with path of ${destinationPath}`);
     (0, file_processing_1.createDirectoryIfNotExists)(destinationPath);
     return (0, sharp_1.default)((0, path_1.normalize)(sourcePath))
         .resize(width, height, options)

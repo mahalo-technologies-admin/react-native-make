@@ -14,6 +14,7 @@ export const setIconTask = async (argv: string[], config: Config, args: Record<s
       await addAndroidIcon(path, background);
       break;
     case EPlatform.WATCHOS:
+      console.log('Generating watchos icons')
       await addWatchOsIcon(path);
       break;
     case EPlatform.ALL:

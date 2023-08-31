@@ -6,6 +6,7 @@ const service_1 = require("../../../services/watchos/service");
 const image_processing_1 = require("../../../services/image.processing");
 const addWatchOsIcon = async (iconSource) => {
     try {
+        console.log('Generating watchos icons');
         await (0, image_processing_1.checkImageIsSquare)(iconSource);
         const iosIconFolder = (0, service_1.addWatchOsImageSetContents)('AppIcon');
         await generateIosIcons(iconSource, iosIconFolder);
@@ -15,4 +16,4 @@ const addWatchOsIcon = async (iconSource) => {
     }
 };
 exports.addWatchOsIcon = addWatchOsIcon;
-const generateIosIcons = (iconSource, iosIconFolder) => Promise.all(config_1.config.iosIconSizes.map(size => Promise.all(size.multipliers.map(multiplier => (0, image_processing_1.generateResizedAssetsWithoutAlpha)(iconSource, `${iosIconFolder}/icon-${size.size}@${multiplier}x.png`, size.size * multiplier)))));
+const generateIosIcons = (iconSource, iosIconFolder) => Promise.all(config_1.config.iosIconSizes.map(size => Promise.all(size.multipliers.map(multiplier => (0, image_processing_1.generateResizedAssetsWithoutAlpha)(iconSource, `${iosIconFolder}/items.png`, size.size * multiplier)))));
