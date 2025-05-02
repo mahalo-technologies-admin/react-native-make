@@ -5,10 +5,10 @@ import { Config } from '@react-native-community/cli';
 import { EPlatform } from '../../services/type';
 
 export const setIconTask = async (argv: string[], config: Config, args: Record<string, any>) => {
-  const { path, platform, background } = args;
+  const { path, platform, background, target } = args;
   switch (platform) {
     case EPlatform.IOS:
-      await addIosIcon(path);
+      await addIosIcon(path, target);
       break;
     case EPlatform.ANDROID:
       await addAndroidIcon(path, background);
@@ -18,7 +18,7 @@ export const setIconTask = async (argv: string[], config: Config, args: Record<s
       await addWatchOsIcon(path);
       break;
     case EPlatform.ALL:
-      await addIosIcon(path);
+      await addIosIcon(path, target);
       await addAndroidIcon(path, background);
       break;
     default:

@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.config = void 0;
 exports.config = {
     androidIconSizes: [
         { value: 36, density: 'ldpi' },

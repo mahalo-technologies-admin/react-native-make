@@ -1,13 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setSplashScreenCommand = void 0;
 const logo_1 = require("../../logo");
 const analytics_1 = require("../../services/analytics");
 const type_1 = require("../../services/type");
 const setSplashScreen_task_1 = require("./setSplashScreen.task");
 exports.setSplashScreenCommand = {
     name: 'set-splash',
-    func: (0, analytics_1.trackTask)('/set-splash', setSplashScreen_task_1.setSplashScreenTask),
+    func: analytics_1.trackTask('/set-splash', setSplashScreen_task_1.setSplashScreenTask),
     description: logo_1.logo + ' generate app splash screen',
     options: [
         {

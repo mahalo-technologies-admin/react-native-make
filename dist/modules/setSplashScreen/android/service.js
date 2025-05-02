@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addAndroidSplashScreen = void 0;
 const color_processing_1 = require("../../../services/color.processing");
 const file_processing_1 = require("../../../services/file.processing");
 const path_1 = require("path");
@@ -9,7 +8,7 @@ const image_processing_1 = require("../../../services/image.processing");
 const config_2 = require("./config");
 const type_1 = require("../../../services/type");
 const utils_1 = require("../../../utils");
-const addAndroidSplashScreen = async (imageSource, backgroundColor, resizeMode) => {
+exports.addAndroidSplashScreen = async (imageSource, backgroundColor, resizeMode) => {
     try {
         addReactNativeSplashScreen(backgroundColor, resizeMode);
         await generateAndroidSplashImages(imageSource);
@@ -18,37 +17,36 @@ const addAndroidSplashScreen = async (imageSource, backgroundColor, resizeMode) 
         console.log(err);
     }
 };
-exports.addAndroidSplashScreen = addAndroidSplashScreen;
 const addLaunchScreenBackgroundColor = (backgroundColor) => {
-    (0, file_processing_1.replaceInFile)((0, path_1.join)(__dirname, '../../../../templates/android/values/colors-splash.xml'), `${config_1.ANDROID_MAIN_RES_PATH}/values/colors-splash.xml`, [
+    file_processing_1.replaceInFile(path_1.join(__dirname, '../../../../templates/android/values/colors-splash.xml'), `${config_1.ANDROID_MAIN_RES_PATH}/values/colors-splash.xml`, [
         {
             oldContent: /{{splashprimary}}/g,
-            newContent: `${(0, color_processing_1.getHexColor)(backgroundColor)}`,
+            newContent: `${color_processing_1.getHexColor(backgroundColor)}`,
         },
     ]);
 };
 const addReactNativeSplashScreen = (backgroundColor, resizeMode = type_1.EResizeMode.CONTAIN) => {
     addLaunchScreenBackgroundColor(backgroundColor);
-    (0, file_processing_1.copyFile)((0, path_1.join)(__dirname, '../../../../templates/android/drawable/splashscreen.xml'), `${config_1.ANDROID_MAIN_RES_PATH}/drawable/splashscreen.xml`);
-    (0, file_processing_1.copyFile)((0, path_1.join)(__dirname, `../../../../templates/android/layout/launch_screen.${resizeMode}.xml`), `${config_1.ANDROID_MAIN_RES_PATH}/layout/launch_screen.xml`);
-    (0, file_processing_1.applyPatch)(`${config_1.ANDROID_MAIN_RES_PATH}/values/styles.xml`, {
+    file_processing_1.copyFile(path_1.join(__dirname, '../../../../templates/android/drawable/splashscreen.xml'), `${config_1.ANDROID_MAIN_RES_PATH}/drawable/splashscreen.xml`);
+    file_processing_1.copyFile(path_1.join(__dirname, `../../../../templates/android/layout/launch_screen.${resizeMode}.xml`), `${config_1.ANDROID_MAIN_RES_PATH}/layout/launch_screen.xml`);
+    file_processing_1.applyPatch(`${config_1.ANDROID_MAIN_RES_PATH}/values/styles.xml`, {
         pattern: /^.*<resources>.*[\r\n]/g,
-        patch: (0, file_processing_1.readFile)((0, path_1.join)(__dirname, '../../../../templates/android/values/styles-splash.xml')),
+        patch: file_processing_1.readFile(path_1.join(__dirname, '../../../../templates/android/values/styles-splash.xml')),
     });
-    const mainActivityPath = `${config_1.ANDROID_MAIN_PATH}/java/${(0, utils_1.convertAndroidPackageNameToUri)((0, utils_1.getAndroidPackageName)())}/MainActivity.java`;
-    (0, file_processing_1.applyPatch)(mainActivityPath, {
+    const mainActivityPath = `${config_1.ANDROID_MAIN_PATH}/java/${utils_1.convertAndroidPackageNameToUri(utils_1.getAndroidPackageName())}/MainActivity.java`;
+    file_processing_1.applyPatch(mainActivityPath, {
         pattern: /^(.+?)(?=import)/gs,
         patch: 'import android.os.Bundle;\n' + 'import org.devio.rn.splashscreen.SplashScreen;\n',
     });
     const onCreateRegExp = /^.*onCreate.*[\r\n]/gm;
-    if ((0, file_processing_1.readFile)(mainActivityPath).match(onCreateRegExp)) {
-        (0, file_processing_1.applyPatch)(mainActivityPath, {
+    if (file_processing_1.readFile(mainActivityPath).match(onCreateRegExp)) {
+        file_processing_1.applyPatch(mainActivityPath, {
             pattern: onCreateRegExp,
             patch: 'SplashScreen.show(this, R.style.SplashScreenTheme);',
         });
     }
     else {
-        (0, file_processing_1.applyPatch)(mainActivityPath, {
+        file_processing_1.applyPatch(mainActivityPath, {
             pattern: /^.*MainActivity.*[\r\n]/gm,
             patch: '    @Override\n' +
                 '    protected void onCreate(Bundle savedInstanceState) {\n' +
@@ -58,6 +56,6 @@ const addReactNativeSplashScreen = (backgroundColor, resizeMode = type_1.EResize
         });
     }
 };
-const generateAndroidSplashImages = (imageSource) => Promise.all(config_2.config.androidSplashImages.map(({ size, density }) => (0, image_processing_1.generateResizedAssets)(imageSource, `${config_1.ANDROID_MAIN_RES_PATH}/drawable-${density}/splash_image.png`, size, size, {
+const generateAndroidSplashImages = (imageSource) => Promise.all(config_2.config.androidSplashImages.map(({ size, density }) => image_processing_1.generateResizedAssets(imageSource, `${config_1.ANDROID_MAIN_RES_PATH}/drawable-${density}/splash_image.png`, size, size, {
     fit: 'inside',
 })));

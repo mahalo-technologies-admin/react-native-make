@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.config = void 0;
 const iosIconSizes = [
     { size: 20, multipliers: [1, 2, 3] },
     { size: 29, multipliers: [1, 2, 3] },

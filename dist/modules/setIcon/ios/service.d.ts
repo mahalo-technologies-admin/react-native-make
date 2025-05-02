@@ -1,1 +1,1 @@
-export declare const addIosIcon: (iconSource: string) => Promise<void>;
+export declare const addIosIcon: (iconSource: string, targetName: string) => Promise<void>;

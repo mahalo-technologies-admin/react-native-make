@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getIosPackageName = exports.convertAndroidPackageNameToUri = exports.getAndroidPackageName = void 0;
 const path_1 = require("path");
 const config_1 = require("./modules/config");
 const file_processing_1 = require("./services/file.processing");
@@ -10,18 +9,18 @@ const IOS_PODFILE_PATH = `./ios/Podfile`;
 const ANDROID_PACKAGE_EXP = new RegExp(/package=\"(.+)\"/);
 const IOS_PACKAGE_EXP = new RegExp(/target\s*["'](.+)['"]\s*do/);
 function fetchFileLocation(filePath) {
-    return (0, path_1.join)(process.cwd(), filePath);
+    return path_1.join(process.cwd(), filePath);
 }
 function getPackageFileName(platform) {
     let packageName;
     switch (platform) {
         case 'android':
-            const appBuildFile = (0, file_processing_1.readFile)(fetchFileLocation(ANDROID_MAIN_MANIFEST_PATH)).toString();
+            const appBuildFile = file_processing_1.readFile(fetchFileLocation(ANDROID_MAIN_MANIFEST_PATH)).toString();
             packageName = appBuildFile.match(ANDROID_PACKAGE_EXP)[1];
             packageName && packageName.toString();
             break;
         case 'ios':
-            const podfile = (0, file_processing_1.readFile)(fetchFileLocation(IOS_PODFILE_PATH)).toString();
+            const podfile = file_processing_1.readFile(fetchFileLocation(IOS_PODFILE_PATH)).toString();
             packageName = podfile.match(IOS_PACKAGE_EXP)[1];
             packageName && packageName.toString();
             break;

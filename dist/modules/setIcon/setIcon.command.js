@@ -1,13 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setIconCommand = void 0;
 const logo_1 = require("../../logo");
 const analytics_1 = require("../../services/analytics");
 const type_1 = require("../../services/type");
 const setIcon_task_1 = require("./setIcon.task");
 exports.setIconCommand = {
     name: 'set-icon',
-    func: (0, analytics_1.trackTask)('/set-icon', setIcon_task_1.setIconTask),
+    func: analytics_1.trackTask('/set-icon', setIcon_task_1.setIconTask),
     description: logo_1.logo + ' generate app icons',
     options: [
         {
@@ -24,6 +23,10 @@ exports.setIconCommand = {
             description: 'background color',
             default: '#ffffff',
         },
+        {
+            name: '--targetName [string]',
+            description: 'target name to put icons into (ios only)'
+        }
     ],
     examples: [
         {
@@ -37,6 +40,10 @@ exports.setIconCommand = {
         {
             desc: 'set the app icon for both devices',
             cmd: 'react-native set-icon --platform android --path <path-to-image> --background <background-color>',
+        },
+        {
+            desc: 'set the app icon for both devices',
+            cmd: 'react-native set-icon --platform android --path <path-to-image> --background <background-color> --targetName <target-name>',
         },
     ],
 };

@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.config = void 0;
 const BASE = 900; // Deliberate size based on max iPhone height
 const androidSplashImages = [
     {

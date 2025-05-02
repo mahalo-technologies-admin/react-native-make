@@ -5,10 +5,10 @@ import {
   generateResizedAssetsWithoutAlpha,
 } from '../../../services/image.processing';
 
-export const addIosIcon = async (iconSource: string) => {
+export const addIosIcon = async (iconSource: string, targetName: string) => {
   try {
     await checkImageIsSquare(iconSource);
-    const iosIconFolder = addIosImageSetContents('AppIcon');
+    const iosIconFolder = addIosImageSetContents('AppIcon', targetName);
     await generateIosIcons(iconSource, iosIconFolder);
   } catch (err) {
     console.log(err);

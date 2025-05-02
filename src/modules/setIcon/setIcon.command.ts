@@ -23,6 +23,10 @@ export const setIconCommand: Command = {
       description: 'background color',
       default: '#ffffff',
     },
+    {
+      name: '--targetName [string]',
+      description: 'target name to put icons into (ios only)'
+    }
   ],
   examples: [
     {
@@ -38,6 +42,11 @@ export const setIconCommand: Command = {
       desc: 'set the app icon for both devices',
       cmd:
         'react-native set-icon --platform android --path <path-to-image> --background <background-color>',
+    },
+    {
+      desc: 'set the app icon for both devices',
+      cmd:
+        'react-native set-icon --platform android --path <path-to-image> --background <background-color> --targetName <target-name>',
     },
   ],
 };

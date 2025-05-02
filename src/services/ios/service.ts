@@ -9,9 +9,11 @@ export enum EImageSetType {
 
 export const addIosImageSetContents = (
   imageSetName: string,
+  targetName: string,
   setType: EImageSetType = EImageSetType.ICON
 ) => {
-  const iosImageFolder = `./ios/${getIosPackageName()}/Images.xcassets/${imageSetName}.${setType}`;
+  const packageName = targetName ? targetName : getIosPackageName()
+  const iosImageFolder = `./ios/${packageName}/Images.xcassets/${imageSetName}.${setType}`;
   copyFile(
     join(__dirname, `../../../templates/ios/${imageSetName}SetContents.json`),
     `${iosImageFolder}/Contents.json`
