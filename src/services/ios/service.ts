@@ -12,8 +12,11 @@ export const addIosImageSetContents = (
   targetName: string,
   setType: EImageSetType = EImageSetType.ICON
 ) => {
+  console.log(`Target Name set to: ${targetName}`)
   const packageName = targetName ? targetName : getIosPackageName()
+  console.log(`Package Name set to: ${packageName}`)
   const iosImageFolder = `./ios/${packageName}/Images.xcassets/${imageSetName}.${setType}`;
+  console.log(`iOS Image Folder: ${iosImageFolder}`)
   copyFile(
     join(__dirname, `../../../templates/ios/${imageSetName}SetContents.json`),
     `${iosImageFolder}/Contents.json`
