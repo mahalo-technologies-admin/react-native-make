@@ -5,10 +5,10 @@ const service_2 = require("./android/service");
 const service_3 = require("./watchos/service");
 const type_1 = require("../../services/type");
 exports.setIconTask = async (argv, config, args) => {
-    const { path, platform, background, target } = args;
+    const { path, platform, background, targetName } = args;
     switch (platform) {
         case type_1.EPlatform.IOS:
-            await service_1.addIosIcon(path, target);
+            await service_1.addIosIcon(path, targetName);
             break;
         case type_1.EPlatform.ANDROID:
             await service_2.addAndroidIcon(path, background);
@@ -18,7 +18,7 @@ exports.setIconTask = async (argv, config, args) => {
             await service_3.addWatchOsIcon(path);
             break;
         case type_1.EPlatform.ALL:
-            await service_1.addIosIcon(path, target);
+            await service_1.addIosIcon(path, targetName);
             await service_2.addAndroidIcon(path, background);
             break;
         default:
